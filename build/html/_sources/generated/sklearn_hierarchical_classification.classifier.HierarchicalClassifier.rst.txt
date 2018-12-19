@@ -1,0 +1,16 @@
+:mod:`sklearn_hierarchical_classification.classifier`.HierarchicalClassifier
+===================================================================================
+
+.. currentmodule:: sklearn_hierarchical_classification.classifier
+
+.. autoclass:: HierarchicalClassifier
+
+   
+   .. automethod:: __init__
+   
+
+.. include:: sklearn_hierarchical_classification.classifier.HierarchicalClassifier.examples
+
+.. raw:: html
+
+    <div class="clearer"></div>

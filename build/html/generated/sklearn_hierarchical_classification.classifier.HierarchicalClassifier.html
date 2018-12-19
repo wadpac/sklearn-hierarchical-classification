@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sklearn_hierarchical_classification.classifier.HierarchicalClassifier &mdash; sklearn-hierarchical-classification 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sklearn_hierarchical_classification.metrics Module" href="../sklearn_hierarchical.metrics.html" />
+    <link rel="prev" title="sklearn_hierarchical_classification.classifier Module" href="../sklearn_hierarchical.classifier.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> sklearn-hierarchical-classification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../sklearn_hierarchical.classifier.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code> Module</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code>.HierarchicalClassifier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sklearn_hierarchical.metrics.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.metrics</span></code> Module</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sklearn-hierarchical-classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../sklearn_hierarchical.classifier.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code> Module</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code>.HierarchicalClassifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/sklearn_hierarchical_classification.classifier.HierarchicalClassifier.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sklearn-hierarchical-classification-classifier-hierarchicalclassifier">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code>.HierarchicalClassifier<a class="headerlink" href="#sklearn-hierarchical-classification-classifier-hierarchicalclassifier" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sklearn_hierarchical_classification.classifier.HierarchicalClassifier">
+<em class="property">class </em><code class="descclassname">sklearn_hierarchical_classification.classifier.</code><code class="descname">HierarchicalClassifier</code><span class="sig-paren">(</span><em>base_estimator=None</em>, <em>class_hierarchy=None</em>, <em>prediction_depth='mlnp'</em>, <em>algorithm='lcpn'</em>, <em>training_strategy=None</em>, <em>stopping_criteria=None</em>, <em>root=-1</em>, <em>progress_wrapper=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.classifier.HierarchicalClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hierarchical classification strategy</p>
+<p>Hierarchical classification deals with the scenario where our target classes have
+inherent structure that can be represented as a tree or a directed acyclic graph (DAG),
+with nodes representing the target classes themselves, and edges representing their inter-relatedness,
+e.g ‘IS A’ semantics.</p>
+<p>Within this general framework, several distinctions can be made based on a few key modelling decisions:</p>
+<ul>
+<li><p class="first">Multi-label classification - Do we support classifying into more than a single target class/label</p>
+</li>
+<li><p class="first">Mandatory / Non-mandatory leaf node prediction - Do we require that classification always results with
+classes corresponding to leaf nodes, or can intermediate nodes also be treated as valid output predictions.</p>
+</li>
+<li><p class="first">Local classifiers - the local (or “base”) classifiers can theoretically be chosen to be of any kind, but we
+distinguish between three main modes of local classification:</p>
+<blockquote>
+<div><ul class="simple">
+<li>“One classifier per parent node” - where each non-leaf node can be fitted with a multi-class
+classifier to predict which one of its child nodes is relevant for given example.</li>
+<li>“One classifier per node” - where each node is fitted with a binary “membership” classifier which
+returns a binary (or a probability) score indicating the fitness for that node and the current
+example.</li>
+<li>Global / “big bang” classifiers - where a single classifier predicts the full path in the hierarchy
+for a given example.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The nomenclature used here is based on the framework outlined in [1].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>base_estimator</strong> <span class="classifier-delimiter">:</span> <span class="classifier">classifier object, function, dict, or None</span></dt>
+<dd><p class="first last">A scikit-learn compatible classifier object implementing ‘fit’ and ‘predict_proba’ to be used as the
+base classifier.
+If a callable function is given, it will be called to evaluate which classifier to instantiate for
+current node. The function will be called with the current node and the graph instance.
+Alternatively, a dictionary mapping classes to classifier objects can be given. In this case,
+when building the classifier tree, the dictionary will be consulted and if a key is found matching
+a particular node, the base classifier pointed to in the dict will be used. Since this is most often
+useful for specifying classifiers on only a handlful of objects, a special ‘DEFAULT’ key can be used to
+set the base classifier to use as a catch all.
+If not provided, a base estimator will be chosen by the framework using various meta-learning
+heuristics (WIP).</p>
+</dd>
+<dt><strong>class_hierarchy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">networkx.DiGraph object, or dict-of-dicts adjacency representation (see examples)</span></dt>
+<dd><p class="first last">A directed graph which represents the target classes and their relations. Must be a tree/DAG (no cycles).
+If not provided, this will be initialized during the <cite>fit</cite> operation into a trivial graph structure linking
+all classes given in <cite>y</cite> to an artificial “ROOT” node.</p>
+</dd>
+<dt><strong>prediction_depth</strong> <span class="classifier-delimiter">:</span> <span class="classifier">“mlnp”, “nmlnp”</span></dt>
+<dd><p class="first last">Prediction depth requirements. This corresponds to whether we wish the classifier to always terminate at
+a leaf node (mandatory leaf-node prediction, “mlnp”), or wish to support early termination via some
+stopping criteria (non-mandatory leaf-node prediction, “nmlnp”). When “nmlnp” is specified, the
+stopping_criteria parameter is used to control the behaviour of the classifier.</p>
+</dd>
+<dt><strong>algorithm</strong> <span class="classifier-delimiter">:</span> <span class="classifier">“lcn”, “lcpn”</span></dt>
+<dd><p class="first">The algorithm type to use for building the hierarchical classification, according to the
+taxonomy defined in [1].</p>
+<p>“lcpn” (which is the default) stands for “local classifier per parent node”. Under this model,
+a multi-class classifier is trained at each parent node, to distinguish between each child nodes.</p>
+<p class="last">“lcn”, which stands for “local classifier per node”. Under this model, a binary classifier is trained
+at each node. Under this model, a further distinction is made based on how the training data set is constructed.
+This is controlled by the “training_strategy” parameter.</p>
+</dd>
+<dt><strong>training_strategy: “exclusive”, “less_exclusive”, “inclusive”, “less_inclusive”,</strong></dt>
+<dd><blockquote class="first">
+<div><p>“siblings”, “exclusive_siblings”, or None.</p>
+</div></blockquote>
+<p class="last">This parameter is used when the ‘algorithm’ parameter is to set to “lcn”, and dictates how training data
+is constructed for training the binary classifier at each node.</p>
+</dd>
+<dt><strong>stopping_criteria: function, float, or None.</strong></dt>
+<dd><p class="first">This parameter is used when the ‘prediction_depth’ parameter is set to “nmlnp”, and is used to evaluate
+at a given node whether classification should terminate or continue further down the hierarchy.</p>
+<p>When set to a float, the prediction will stop if the reported confidence at current classifier is below
+the provided value.</p>
+<p class="last">When set to a function, the callback function will be called with the current node attributes,
+including its metafeatures, and the current classification results.
+This allows the user to define arbitrary logic that can decide whether classification should stop at
+the current node or continue. The function should return True if classification should continue,
+or False if classification should stop at current node.</p>
+</dd>
+<dt><strong>root</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer, string</span></dt>
+<dd><p class="first last">The unique identifier for the qualified root node in the class hierarchy. The hierarchical classifier
+assumes that the given class hierarchy graph is a rooted DAG, e.g has a single designated root node
+of in-degree 0. This node is associated with a special identifier which defaults to a framework provided one,
+but can be overridden by user in some cases, e.g if the original taxonomy is already rooted and there’s no need
+for injecting an artifical root node.</p>
+</dd>
+<dt><strong>progress_wrapper</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress generator or None</span></dt>
+<dd><p class="first last">If value is set, will attempt to use the given generator to display progress updates. This added functionality
+is especially useful within interactive environments (e.g in a testing harness or a Jupyter notebook). Setting
+this value will also enable verbose logging. Common values in tqdm are <cite>tqdm_notebook</cite> or <cite>tqdm</cite></p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r3fc1ad2b7dc9-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>CN Silla et al., “A survey of hierarchical classification across
+different application domains”, 2011.</td></tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>classes_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array, shape = [<cite>n_classes</cite>]</span></dt>
+<dd><p class="first last">Flat array of class labels</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sklearn_hierarchical_classification.classifier.HierarchicalClassifier.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>base_estimator=None</em>, <em>class_hierarchy=None</em>, <em>prediction_depth='mlnp'</em>, <em>algorithm='lcpn'</em>, <em>training_strategy=None</em>, <em>stopping_criteria=None</em>, <em>root=-1</em>, <em>progress_wrapper=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.classifier.HierarchicalClassifier.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sklearn_hierarchical.metrics.html" class="btn btn-neutral float-right" title="sklearn_hierarchical_classification.metrics Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../sklearn_hierarchical.classifier.html" class="btn btn-neutral" title="sklearn_hierarchical_classification.classifier Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Globality Engineering
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

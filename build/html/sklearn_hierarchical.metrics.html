@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sklearn_hierarchical_classification.metrics Module &mdash; sklearn-hierarchical-classification 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sklearn-hierarchical-classification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.metrics</span></code> Module</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sklearn-hierarchical-classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.metrics</span></code> Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sklearn_hierarchical.metrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sklearn_hierarchical_classification.metrics">
+<span id="sklearn-hierarchical-classification-metrics-module"></span><h1><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.metrics</span></code> Module<a class="headerlink" href="#module-sklearn_hierarchical_classification.metrics" title="Permalink to this headline">¶</a></h1>
+<p>Evaluation metrics for hierarchical classification.</p>
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.metrics.fill_ancestors">
+<code class="descclassname">sklearn_hierarchical_classification.metrics.</code><code class="descname">fill_ancestors</code><span class="sig-paren">(</span><em>y</em>, <em>graph</em>, <em>copy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.metrics.fill_ancestors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the full ancestor set for y given as a matrix of 0-1.</p>
+<p>Each row will be processed and filled in with 1s in indexes corresponding
+to the (integer) id of the ancestor nodes of those already marked with 1
+in that row, based on the given class hierarchy graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">multi-class targets, corresponding to graph node integer ids.</p>
+</dd>
+<dt><strong>graph</strong> <span class="classifier-delimiter">:</span> <span class="classifier">the class hierarchy graph, given as a <cite>networkx.DiGraph</cite> instance</span></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>y_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">multi-class targets, corresponding to graph node integer ids with
+all ancestors of existing labels in matrix filled in, per row.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.metrics.h_fbeta_score">
+<code class="descclassname">sklearn_hierarchical_classification.metrics.</code><code class="descname">h_fbeta_score</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_pred</em>, <em>class_hierarchy</em>, <em>beta=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.metrics.h_fbeta_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the hierarchical F-beta (“hF_{eta}”) metric based on
+given set of true class labels and predicated class labels, and the
+class hierarchy graph.</p>
+<p>For motivation and definition details, see:</p>
+<blockquote>
+<div><p>Functional Annotation of Genes Using Hierarchical Text
+Categorization, Kiritchenko et al 2008</p>
+<p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf</a></p>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>y_true</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Ground truth multi-class targets.</p>
+</dd>
+<dt><strong>y_pred</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Predicted multi-class targets.</p>
+</dd>
+<dt><strong>class_hierarchy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">the class hierarchy graph, given as a <cite>networkx.DiGraph</cite> instance</span></dt>
+<dd><p class="first last">Node ids must be integer and correspond to the indices into the y_true / y_pred matrices.</p>
+</dd>
+<dt><strong>beta: float</strong></dt>
+<dd><p class="first last">the beta parameter for the F-beta score. Defaults to F1 score (beta=1).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>hFscore</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">The computed hierarchical F-score.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.metrics.h_precision_score">
+<code class="descclassname">sklearn_hierarchical_classification.metrics.</code><code class="descname">h_precision_score</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_pred</em>, <em>class_hierarchy</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.metrics.h_precision_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the hierarchical precision (“hR”) metric based on
+given set of true class labels and predicated class labels, and the
+class hierarchy graph.</p>
+<p>For motivation and definition details, see:</p>
+<blockquote>
+<div><p>Functional Annotation of Genes Using Hierarchical Text
+Categorization, Kiritchenko et al 2008</p>
+<p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf</a></p>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>y_true</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Ground truth multi-class targets.</p>
+</dd>
+<dt><strong>y_pred</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Predicted multi-class targets.</p>
+</dd>
+<dt><strong>class_hierarchy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">the class hierarchy graph, given as a <cite>networkx.DiGraph</cite> instance</span></dt>
+<dd><p class="first last">Node ids must be integer and correspond to the indices into the y_true / y_pred matrices.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>hP</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">The computed hierarchical precision score.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.metrics.h_recall_score">
+<code class="descclassname">sklearn_hierarchical_classification.metrics.</code><code class="descname">h_recall_score</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_pred</em>, <em>class_hierarchy</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.metrics.h_recall_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the hierarchical recall (“hR”) metric based on
+given set of true class labels and predicated class labels, and the
+class hierarchy graph.</p>
+<p>For motivation and definition details, see:</p>
+<blockquote>
+<div><p>Functional Annotation of Genes Using Hierarchical Text
+Categorization, Kiritchenko et al 2008</p>
+<p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.68.5824&amp;rep=rep1&amp;type=pdf</a></p>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>y_true</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Ground truth multi-class targets.</p>
+</dd>
+<dt><strong>y_pred</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_classes].</span></dt>
+<dd><p class="first last">Predicted multi-class targets.</p>
+</dd>
+<dt><strong>class_hierarchy</strong> <span class="classifier-delimiter">:</span> <span class="classifier">the class hierarchy graph, given as a <cite>networkx.DiGraph</cite> instance.</span></dt>
+<dd><p class="first last">Node ids must be integer and correspond to the indices into the y_true / y_pred matrices.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>hR</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">The computed hierarchical recall score.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Globality Engineering
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
