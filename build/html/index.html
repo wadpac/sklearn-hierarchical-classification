@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to sklearn-hierarchical-classification’s documentation! &mdash; sklearn-hierarchical-classification 0.1.0 documentation</title>
+  <title>sklearn-hierarchical-classification: Hierarchical Classification with scikit-learn &mdash; sklearn-hierarchical-classification 0.1.0 documentation</title>
   
 
   
@@ -129,7 +129,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to sklearn-hierarchical-classification’s documentation!</li>
+      <li>sklearn-hierarchical-classification: Hierarchical Classification with scikit-learn</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -148,9 +148,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-sklearn_hierarchical_classification">
-<span id="welcome-to-sklearn-hierarchical-classification-s-documentation"></span><h1>Welcome to sklearn-hierarchical-classification’s documentation!<a class="headerlink" href="#module-sklearn_hierarchical_classification" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
+  <div class="section" id="sklearn-hierarchical-classification-hierarchical-classification-with-scikit-learn">
+<h1>sklearn-hierarchical-classification: Hierarchical Classification with scikit-learn<a class="headerlink" href="#sklearn-hierarchical-classification-hierarchical-classification-with-scikit-learn" title="Permalink to this headline">¶</a></h1>
+<p>sklearn-hierarchical-classification is a scikit-learn compatible implementation of hierarchical classification.</p>
+<p>Hierarchical classification is a useful paradigm whenever we are trying to classify data into a set of target labels for which internal structure exists; Typically, this structure can be expressed as a graph, e.g. as a tree or more generally as a DAG (<a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">directed acyclic graph</a>).</p>
+<p>A good example of such a large-scale hierarchical text classification task is the <a class="reference external" href="https://www.kaggle.com/c/lshtc">LSHTC Challenge</a> on Kaggle; This example actually exemplifies a few other challenges that are often associated with hierarchical classification:</p>
+<ul class="simple">
+<li>The space of target labels can be very large; a taxonomy of categories can easily grow into the tens of thousands</li>
+<li>The task can be <a class="reference external" href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label</a> - a single data point can be associated with multiple target labels</li>
+<li>The hiearchy itself in theory could contain cycles when viewed as a graph; Currently, this package does not support such cases, although support might be added in the future.</li>
+</ul>
+<p>This package leverages standardized conventions and naming that was introduced by the excellent survey paper <a class="reference internal" href="#ref001" id="id1">[REF001]</a>.</p>
+<table class="docutils citation" frame="void" id="ref001" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[REF001]</a></td><td><a class="reference external" href="https://www.researchgate.net/publication/225716424_A_survey_of_hierarchical_classification_across_different_application_domains">A survey of hierarchical classification across different application domains</a> - CN Silla et al. 2011</td></tr>
+</tbody>
+</table>
+<span class="target" id="module-sklearn_hierarchical_classification"></span><hr class="docutils" />
 <p><strong>Sub-Modules:</strong></p>
 <div class="toctree-wrapper compound">
 <ul>
