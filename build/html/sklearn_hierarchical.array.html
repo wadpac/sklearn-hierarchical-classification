@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sklearn_hierarchical_classification.array Module &mdash; sklearn-hierarchical-classification 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sklearn_hierarchical_classification.classifier Module" href="sklearn_hierarchical.classifier.html" />
+    <link rel="prev" title="sklearn-hierarchical-classification: Hierarchical Classification with scikit-learn" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sklearn-hierarchical-classification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.array</span></code> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sklearn_hierarchical.classifier.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.classifier</span></code> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sklearn_hierarchical.graph.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.graph</span></code> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sklearn_hierarchical.metrics.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.metrics</span></code> Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sklearn_hierarchical.validation.html"><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.validation</span></code> Module</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sklearn-hierarchical-classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.array</span></code> Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sklearn_hierarchical.array.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sklearn_hierarchical_classification.array">
+<span id="sklearn-hierarchical-classification-array-module"></span><h1><code class="docutils literal notranslate"><span class="pre">sklearn_hierarchical_classification.array</span></code> Module<a class="headerlink" href="#module-sklearn_hierarchical_classification.array" title="Permalink to this headline">¶</a></h1>
+<p>Helpers for workings with sequences and (numpy) arrays.</p>
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.array.apply_along_rows">
+<code class="descclassname">sklearn_hierarchical_classification.array.</code><code class="descname">apply_along_rows</code><span class="sig-paren">(</span><em>func</em>, <em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.array.apply_along_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply function row-wise to input matrix X.
+This will work for dense matrices (eg np.ndarray)
+as well as for CSR sparse matrices.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.array.apply_rollup_Xy">
+<code class="descclassname">sklearn_hierarchical_classification.array.</code><code class="descname">apply_rollup_Xy</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.array.apply_rollup_Xy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">(sparse) array-like, shape = [n_samples, n_features]</span></dt>
+<dd><p class="first last">Data.</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list-of-lists - [n_samples]</span></dt>
+<dd><p class="first last">For each sample, y maintains list of labels this sample should be used for in training.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>X_, y_</strong></dt>
+<dd><p class="first last">Transformed by ‘flattening’ out y parameter and duplicating corresponding rows in X</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.array.extract_rows_csr">
+<code class="descclassname">sklearn_hierarchical_classification.array.</code><code class="descname">extract_rows_csr</code><span class="sig-paren">(</span><em>matrix</em>, <em>rows</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.array.extract_rows_csr" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">(sparse) csr_matrix</span></dt>
+<dd></dd>
+<dt><strong>rows</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of row ids</span></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>matrix_: (sparse) csr_matrix</strong></dt>
+<dd><p class="first last">Transformed by extracting the desired rows from <cite>matrix</cite></p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.array.nnz_columns_count">
+<code class="descclassname">sklearn_hierarchical_classification.array.</code><code class="descname">nnz_columns_count</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.array.nnz_columns_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return count of columns which have at least one non-zero value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sklearn_hierarchical_classification.array.nnz_rows_ix">
+<code class="descclassname">sklearn_hierarchical_classification.array.</code><code class="descname">nnz_rows_ix</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn_hierarchical_classification.array.nnz_rows_ix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return row indices which have at least one non-zero column value.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sklearn_hierarchical.classifier.html" class="btn btn-neutral float-right" title="sklearn_hierarchical_classification.classifier Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="sklearn-hierarchical-classification: Hierarchical Classification with scikit-learn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Globality Engineering
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
