@@ -3,6 +3,7 @@ from itertools import chain
 
 import numpy as np
 from scipy.sparse import issparse, csr_matrix
+from tqdm import tqdm
 
 
 def flatten_list(lst):
@@ -25,11 +26,15 @@ def apply_along_rows(func, X):
         # XXX might break vis-a-vis this issue merging: https://github.com/numpy/numpy/pull/8511
         # See discussion over issue with truncated string when using np.apply_along_axis here:
         #   https://github.com/numpy/numpy/issues/8352
-        return np.ma.apply_along_axis(
-            lambda x: func(x.reshape(1, -1)),
-            axis=1,
-            arr=X,
-        )
+#        return np.ma.apply_along_axis(
+#            lambda x: func(x.reshape(1, -1)),
+#            axis=1,
+#            arr=X,
+#        )
+        pred = []
+        for i in tqdm(range(X.shape[0])):
+            pred.append(func(X[i].reshape(1,-1)))
+        return np.array(pred)
 
 
 def apply_rollup_Xy(X, y):
