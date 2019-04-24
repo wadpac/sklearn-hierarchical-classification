@@ -59,6 +59,8 @@ def multi_labeled(y_true, y_pred, graph):
         old_label: new_label
         for new_label, old_label in enumerate(list(mlb.classes_))
     }
+    y_true = [[y] for y in y_true]
+    y_pred = [[y] for y in y_pred]
 
     yield (
         mlb.transform(y_true),
