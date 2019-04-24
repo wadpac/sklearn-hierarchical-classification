@@ -24,6 +24,9 @@ from sklearn_hierarchical_classification.dummy import DummyProgress
 from sklearn_hierarchical_classification.graph import make_flat_hierarchy, rollup_nodes
 from sklearn_hierarchical_classification.validation import is_estimator, validate_parameters
 
+from imblearn.over_sampling import SMOTE
+from collections import Counter
+from tqdm import tqdm
 
 @logger
 class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin):
@@ -141,7 +144,7 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
         self.stopping_criteria = stopping_criteria
         self.root = root
         self.progress_wrapper = progress_wrapper
-
+        
     def fit(self, X, y=None, sample_weight=None):
         """Fit underlying classifiers.
 
@@ -169,7 +172,7 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
 
         # Check that parameter assignment is consistent
         self._check_parameters()
-
+        
         # Initialize NetworkX Graph from input class hierarchy
         self.class_hierarchy_ = self.class_hierarchy or make_flat_hierarchy(list(np.unique(y)), root=self.root)
         self.graph_ = DiGraph(self.class_hierarchy_)
@@ -179,6 +182,7 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
             for node in self.graph_.nodes()
             if node != self.root
         )
+
         self.logger.debug("fit() - self.classes_ = %s", self.classes_)
 
         # Recursively build training feature sets for each node in graph
@@ -207,13 +211,7 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
         """
         check_is_fitted(self, "graph_")
         X = check_array(X, accept_sparse="csr")
-
-        def _classify(x):
-            # TODO support multi-label / paths?
-            path, _ = self._recursive_predict(x, root=self.root)
-            return path[-1]
-
-        y_pred = apply_along_rows(_classify, X=X)
+        y_pred, _ = self._predict(X)
         return y_pred
 
     def predict_proba(self, X):
@@ -233,13 +231,8 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
         """
         check_is_fitted(self, "graph_")
         X = check_array(X, accept_sparse="csr")
-
-        def _classify(x):
-            _, scores = self._recursive_predict(x, root=self.root)
-            return scores
-
-        y_pred = apply_along_rows(_classify, X=X)
-        return y_pred
+        _, scores = self._predict(X)
+        return scores
 
     @property
     def n_classes_(self):
@@ -419,53 +412,45 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
         else:
             clf = self._base_estimator_for(node_id)
 
-        clf.fit(X=X_, y=y_)
+        # TODO: Add data balancing with SMOTE here
+        smote = SMOTE(random_state=0, n_jobs=-1, sampling_strategy='minority')
+        X_resamp, y_resamp = smote.fit_resample(X_, y_)
+        clf.fit(X=X_resamp, y=y_resamp)
         self.graph_.node[node_id][CLASSIFIER] = clf
+        
+    def _recursive_predict(self, class_prob, node):
+        # If node is leaf, return it
+        if len(list(self.graph_.successors(node))) == 0:
+            return node
+        indices = [self.classes_.index(child_node_id) for child_node_id in self.graph_.successors(node)]
+        probs = class_prob[indices]
+        pred_idx = np.argmax(probs)
+        pred_node = self.classes_[indices[pred_idx]]
+        pred_score = probs[pred_idx]
+        # For nmlnp, terminate prediction early
+        if self._should_early_terminate(node, pred_node, pred_score):
+            return node
+        pred = self._recursive_predict(class_prob, pred_node)
+        return pred     
 
-    def _recursive_predict(self, x, root):
-        clf = self.graph_.node[root][CLASSIFIER]
-        path = [root]
-        path_proba = []
-        class_proba = np.zeros_like(self.classes_, dtype=np.float64)
-
-        while clf:
-            probs = clf.predict_proba(x)[0]
-            argmax = np.argmax(probs)
-            score = probs[argmax]
-            path_proba.append(score)
-
-            # Report probabilities in terms of complete class hierarchy
-            for local_class_idx, class_ in enumerate(clf.classes_):
-                try:
+    def _predict(self, X):
+        # Predict classification for all non-leaf nodes and store probabilities
+        class_proba = np.zeros((X.shape[0],len(self.classes_)), dtype=np.float64)
+        for node in self.graph_.nodes():
+            clf = self.graph_.node[node].get(CLASSIFIER, None)
+            if clf is not None:
+                probs = clf.predict_proba(X)
+                for local_idx, class_ in enumerate(clf.classes_):
                     class_idx = self.classes_.index(class_)
-                except ValueError:
-                    # This may happen if the classes_ enumeration we construct during fit()
-                    # has a mismatch with the individual node classifiers' classes_.
-                    self.logger.error(
-                        "Could not find index in self.classes_ for class_ = '%s' (type: %s). path: %s",
-                        class_,
-                        type(class_),
-                        path,
-                    )
-                    raise
+                    class_proba[:,class_idx] = probs[:,local_idx]
+                    
+        # Get predictions and scores for each sample           
+        y_pred = []
+        for i in tqdm(range(X.shape[0])):
+            pred = self._recursive_predict(class_proba[i], self.root)
+            y_pred.append(pred)
 
-                class_proba[class_idx] = probs[local_class_idx]
-                if local_class_idx == argmax:
-                    prediction = class_
-
-            if self._should_early_terminate(
-                current_node=path[-1],
-                prediction=prediction,
-                score=score,
-            ):
-                break
-
-            # Update current path
-            path.append(prediction)
-
-            clf = self.graph_.node[prediction].get(CLASSIFIER, None)
-
-        return path, class_proba
+        return np.array(y_pred), class_proba
 
     def _should_early_terminate(self, current_node, prediction, score):
         """
@@ -504,7 +489,7 @@ class HierarchicalClassifier(BaseEstimator, ClassifierMixin, MetaEstimatorMixin)
 
     def _base_estimator_for(self, node_id):
         base_estimator = None
-        if not self.base_estimator:
+        if self.base_estimator is None:
             # No base estimator specified by user, try to pick best one
             base_estimator = self._make_base_estimator(node_id)
 
