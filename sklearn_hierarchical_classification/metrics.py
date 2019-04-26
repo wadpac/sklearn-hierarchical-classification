@@ -59,6 +59,7 @@ def multi_labeled(y_true, y_pred, graph):
         old_label: new_label
         for new_label, old_label in enumerate(list(mlb.classes_))
     }
+
     y_true = [[y] for y in y_true]
     y_pred = [[y] for y in y_pred]
 
@@ -66,6 +67,7 @@ def multi_labeled(y_true, y_pred, graph):
         mlb.transform(y_true),
         mlb.transform(y_pred),
         relabel_nodes(graph, node_label_mapping),
+        list(mlb.classes_)
     )
 
 
@@ -235,4 +237,5 @@ def h_fbeta_score(y_true, y_pred, class_hierarchy, beta=1.):
     """
     hP = h_precision_score(y_true, y_pred, class_hierarchy)
     hR = h_recall_score(y_true, y_pred, class_hierarchy)
-    return (1. + beta ** 2.) * hP * hR / (beta ** 2. * hP + hR)
+    hfbeta = (1. + beta ** 2.) * hP * hR / (beta ** 2. * hP + hR)
+    return hP, hR, hfbeta
