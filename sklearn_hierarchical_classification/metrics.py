@@ -108,7 +108,7 @@ def fill_ancestors(y, graph, copy=True):
     return y_
 
 
-def h_precision_score(y_true, y_pred, class_hierarchy):
+def h_precision_score(y_true, y_pred, class_hierarchy, fill=True):
     """
     Calculate the hierarchical precision ("hR") metric based on
     given set of true class labels and predicated class labels, and the
@@ -142,8 +142,12 @@ def h_precision_score(y_true, y_pred, class_hierarchy):
         The computed (micro-averaged) hierarchical precision score.
 
     """
-    y_true_ = fill_ancestors(y_true, graph=class_hierarchy)
-    y_pred_ = fill_ancestors(y_pred, graph=class_hierarchy)
+    if fill:
+      y_true_ = fill_ancestors(y_true, graph=class_hierarchy)
+      y_pred_ = fill_ancestors(y_pred, graph=class_hierarchy)
+    else:
+      y_true_ = y_true
+      y_pred_ = y_pred
 
     ix = np.where((y_true_ != 0) & (y_pred_ != 0))
 
@@ -153,7 +157,7 @@ def h_precision_score(y_true, y_pred, class_hierarchy):
     return true_positives / all_results
 
 
-def h_recall_score(y_true, y_pred, class_hierarchy):
+def h_recall_score(y_true, y_pred, class_hierarchy, fill=True):
     """
     Calculate the hierarchical recall ("hR") metric based on
     given set of true class labels and predicated class labels, and the
@@ -187,8 +191,12 @@ def h_recall_score(y_true, y_pred, class_hierarchy):
         The computed (micro-averaged) hierarchical recall score.
 
     """
-    y_true_ = fill_ancestors(y_true, graph=class_hierarchy)
-    y_pred_ = fill_ancestors(y_pred, graph=class_hierarchy)
+    if fill:
+      y_true_ = fill_ancestors(y_true, graph=class_hierarchy)
+      y_pred_ = fill_ancestors(y_pred, graph=class_hierarchy)
+    else:
+      y_true_ = y_true
+      y_pred_ = y_pred
 
     ix = np.where((y_true_ != 0) & (y_pred_ != 0))
 
@@ -198,7 +206,7 @@ def h_recall_score(y_true, y_pred, class_hierarchy):
     return true_positives / all_positives
 
 
-def h_fbeta_score(y_true, y_pred, class_hierarchy, beta=1.):
+def h_fbeta_score(y_true, y_pred, class_hierarchy, beta=1., fill=True):
     """
     Calculate the hierarchical F-beta ("hF_{\beta}") metric based on
     given set of true class labels and predicated class labels, and the
@@ -235,7 +243,7 @@ def h_fbeta_score(y_true, y_pred, class_hierarchy, beta=1.):
         The computed (micro-averaged) hierarchical F-score.
 
     """
-    hP = h_precision_score(y_true, y_pred, class_hierarchy)
-    hR = h_recall_score(y_true, y_pred, class_hierarchy)
+    hP = h_precision_score(y_true, y_pred, class_hierarchy, fill=fill)
+    hR = h_recall_score(y_true, y_pred, class_hierarchy, fill=fill)
     hfbeta = (1. + beta ** 2.) * hP * hR / (beta ** 2. * hP + hR)
     return hP, hR, hfbeta
